@@ -1,0 +1,5 @@
+menu "Learn driver"
+
+source "drivers/learn/platform/Kconfig"
+
+endmenu

@@ -1,0 +1,13 @@
+config LEARN_PLATFORM
+bool "Build platform driver"
+default n
+
+if LEARN_PLATFORM
+
+	config SIMPLE_PLATFORM
+		tristate "Simple platform driver"
+		default n
+		help
+			My first platform driver
+
+endif
