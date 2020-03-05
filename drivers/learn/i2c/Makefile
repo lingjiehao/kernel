@@ -1,0 +1,1 @@
+obj-$(CONFIG_EEPROM_AT24C256) += at24c256.o

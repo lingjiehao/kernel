@@ -1,0 +1,10 @@
+config LEARN_I2C
+bool "Build i2c driver"
+default n
+
+if LEARN_I2C
+	config EEPROM_AT24C256
+		tristate "EEPROM AT24C256 driver"
+		default n
+
+endif

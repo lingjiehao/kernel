@@ -2,4 +2,6 @@ menu "Learn driver"
 
 source "drivers/learn/platform/Kconfig"
 
+source "drivers/learn/i2c/Kconfig"
+
 endmenu
