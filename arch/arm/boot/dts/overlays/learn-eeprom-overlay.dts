@@ -6,7 +6,7 @@
 	#size-cells = <0>;
 
 	at24c256: at24c256@50 {
-		compatiable = "atmel,at24c256";
+		compatible = "atmel,at24c256";
 		reg = <0x50>; /* Slave address: 0x50 */
 		size = <32768>; /* 256 * 1024 / 8 = 32768 byte */
 		status = "ok";
