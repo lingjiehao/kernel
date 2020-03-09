@@ -58,14 +58,16 @@ static struct attribute *at24c256_attrs[] = {
 	NULL,
 };
 
-ATTRIBUTE_GROUPS(at24c256);
+static struct attribute_group at24c256_group = {
+	.attrs = at24c256_attrs,
+};
 
 static int at24c256_probe(struct i2c_client *i2c,
 		const struct i2c_device_id *dev_id)
 {
 	int ret;
 
-	ret = sysfs_create_groups(&i2c->dev.kobj, at24c256_groups);
+	ret = sysfs_create_group(&i2c->dev.kobj, &at24c256_group);
 	if (ret) {
 		printk("Failed to create at24c256 attr group\n");
 		return ret;
@@ -79,7 +81,7 @@ static int at24c256_remove(struct i2c_client *i2c)
 {
 	printk("HLJ: driver for at24c256 removed!\n");
 
-	sysfs_remove_groups(&i2c->dev.kobj, at24c256_groups);
+	sysfs_remove_group(&i2c->dev.kobj, &at24c256_group);
 	return 0;
 }
 
