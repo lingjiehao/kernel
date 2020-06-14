@@ -4,76 +4,21 @@
 #include <linux/device.h>
 #include <linux/sysfs.h>
 
-
-static ssize_t at24c256_data_dump(struct device *dev,
-		struct device_attribute *attr, char *buf)
-{
-
-	return 0;
-}
-DEVICE_ATTR(dump, S_IRUGO, at24c256_data_dump, NULL);
-
-static ssize_t at24c256_reg_show(struct device *dev,
-		struct device_attribute *attr, char *buf)
-{
-
-	return 0;
-}
-
-static ssize_t at24c256_reg_store(struct device *dev, struct device_attribute *attr,
-		const char *buf, size_t count)
-{
-
-	return 0;
-}
-DEVICE_ATTR(reg, S_IRUGO|S_IWUSR, at24c256_reg_show, at24c256_reg_store);
-
-static ssize_t at24c256_data_show(struct device *dev,
-		struct device_attribute *attr, char *buf)
-{
-	
-	return 0;
-}
-static ssize_t at24c256_data_store(struct device *dev, struct device_attribute *attr,
-		const char *buf, size_t count)
-{
-	return 0;
-
-}
-DEVICE_ATTR(data, S_IRUGO|S_IWUSR, at24c256_data_show, at24c256_data_store);
-
-static ssize_t at24c256_address_show(struct device *dev,
-		struct device_attribute *attr, char *buf)
-{
-
-	return 0;
-}
-DEVICE_ATTR(address, S_IRUGO, at24c256_address_show, NULL);
-
-static struct attribute *at24c256_attrs[] = {
-	&dev_attr_dump.attr,
-	&dev_attr_reg.attr,
-	&dev_attr_data.attr,
-	&dev_attr_address.attr,
-	NULL,
-};
-
-static struct attribute_group at24c256_group = {
-	.attrs = at24c256_attrs,
-};
+#include "at24c256_sysfs.h"
 
 static int at24c256_probe(struct i2c_client *i2c,
 		const struct i2c_device_id *dev_id)
 {
 	int ret;
 
-	ret = sysfs_create_group(&i2c->dev.kobj, &at24c256_group);
+	printk("HLJ: driver for at24c256 probed!\n");
+
+	ret = at24c256_sysfs_create(&i2c->dev.kobj);
 	if (ret) {
 		printk("Failed to create at24c256 attr group\n");
 		return ret;
 	}
 
-	printk("HLJ: driver for at24c256 probed!\n");
 	return 0;
 }
 
@@ -81,7 +26,7 @@ static int at24c256_remove(struct i2c_client *i2c)
 {
 	printk("HLJ: driver for at24c256 removed!\n");
 
-	sysfs_remove_group(&i2c->dev.kobj, &at24c256_group);
+	at24c256_sysfs_remove(&i2c->dev.kobj);
 	return 0;
 }
 
